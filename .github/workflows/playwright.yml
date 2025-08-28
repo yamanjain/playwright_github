@@ -33,10 +33,6 @@ jobs:
       - name: Install Playwright Python package
         run: pip install -r requirements.txt
 
-      - name: Run script with DB secret
-        env:
-        db_connection_url: ${{ secrets.db_connection_url }}   # <--- inject secret as env var
-
       # Cache Playwright browsers
       - name: Cache Playwright browsers
         uses: actions/cache@v3
@@ -50,4 +46,8 @@ jobs:
         run: python -m playwright install chromium --with-deps
 
       - name: Run hello_playwright.py
+        env:
+          db_connection_url: ${{ secrets.db_connection_url }}   # <--- inject secret as env var
+          nysa_user_id: ${{ secrets.nysa_user_id }}             # <--- inject secret as env var
+          nysa_password: ${{ secrets.nysa_password }}           # <--- inject secret as env var
         run: python hello_playwright.py
