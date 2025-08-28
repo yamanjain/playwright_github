@@ -1,0 +1,31 @@
+name: Playwright Hello World
+
+on:
+  workflow_dispatch:    # allows manual runs
+  schedule:
+    - cron: '0 0 * * *' # optional: daily at 00:00 UTC (change as you like)
+
+jobs:
+  run-playwright:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install Playwright Python package
+        run: pip install -r requirements.txt
+
+      - name: Install Playwright browsers (and required OS deps)
+        run: python -m playwright install chromium --with-deps
+
+      - name: Run hello_playwright.py
+        run: python hello_playwright.py
