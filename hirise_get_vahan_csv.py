@@ -68,8 +68,9 @@ def hirise_authentication(p):
         exit(1)
     # Authentication begins
     # captchaCode
-    hirise_user_id = os.getenv('HIRISE_USER_ID')
-    hirise_password = os.getenv('HIRISE_PASSWORD')
+    hirise_user_id = os.getenv('hirise_user_id')
+    hirise_password = os.getenv('hirise_password')
+    print ("Using Hirise User ID:", hirise_user_id)
     page.get_by_label("HI-RISE User ID").fill(hirise_user_id)
     page.get_by_label("Password").fill(hirise_password)
     page.get_by_role("link", name="Login")
