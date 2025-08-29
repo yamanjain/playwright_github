@@ -38,6 +38,7 @@ def icici_nysa_authentication(p):
             break
         except:
             print (f"{login_what}  homepage timed out. Retrying..")
+            time.sleep(3)
             retry += 1
     if retry == max_no_of_retry:
         print (f"{login_what}  homepage timed out. Exiting..")
