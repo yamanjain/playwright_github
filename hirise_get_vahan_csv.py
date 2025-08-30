@@ -74,8 +74,8 @@ def hirise_authentication(p):
         with open(incorrect_password_filename, "rb") as f:
             loaded_incorrect_password = pickle.load(f)
 
-    hirise_user_id = os.getenv('hirise_user_id')
-    hirise_password = os.getenv('hirise_password')
+    hirise_user_id = os.getenv('HIRISE_USER_ID')
+    hirise_password = os.getenv('HIRISE_PASSWORD')
     if loaded_incorrect_password == hirise_password:
         print("Hirise password has expired or is invalid. Saved incorrect password found. Please check and update the .env file. Exiting..")
         exit(0)

@@ -11,8 +11,8 @@ import pandas as pd
 
 def icici_nysa_authentication(p):
     login_what = "nysa"
-    login_user_id = os.getenv("nysa_user_id")
-    login_password = os.getenv("nysa_password")
+    login_user_id = os.getenv("NYSA_USER_ID")
+    login_password = os.getenv("NYSA_PASSWORD")
     # # prepare Playwright
     # with sync_playwright() as p:
 
