@@ -68,8 +68,17 @@ def hirise_authentication(p):
         exit(1)
     # Authentication begins
     # captchaCode
+    incorrect_password_filename = "incorrect_hirise_password.pkl"
+    if os.path.exists(incorrect_password_filename):
+        # Retrieve from file
+        with open(incorrect_password_filename, "rb") as f:
+            loaded_incorrect_password = pickle.load(f)
+
     hirise_user_id = os.getenv('hirise_user_id')
     hirise_password = os.getenv('hirise_password')
+    if loaded_incorrect_password == hirise_password:
+        print("Hirise password has expired or is invalid. Saved incorrect password found. Please check and update the .env file. Exiting..")
+        exit(0)
     print ("Using Hirise User ID:", hirise_user_id)
     page.get_by_label("HI-RISE User ID").fill(hirise_user_id)
     page.get_by_label("Password").fill(hirise_password)
@@ -118,6 +127,14 @@ def hirise_authentication(p):
         page.pause()
     page.get_by_role("link", name="Login").click()
     time.sleep(1)
+    incorrect_password = page.get_by_text("The user ID or password that you entered is incorrect")
+    if incorrect_password.is_visible():
+        with open(incorrect_password_filename, "wb") as f:
+            pickle.dump(hirise_password, f)
+        print("Incorrect User ID or Password. Exiting..")
+        exit(0)
+    # Check if logged in to Hirise
+
     return [browser, page, context]
 
 def get_vahan_csv_from_hirise(page, file_path):
