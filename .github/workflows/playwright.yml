@@ -52,9 +52,9 @@ jobs:
 
       - name: Run hello_playwright.py
         env:
-          db_connection_url: ${{ secrets.db_connection_url }}   # <--- inject secret as env var
-          nysa_user_id: ${{ secrets.nysa_user_id }}             # <--- inject secret as env var
-          nysa_password: ${{ secrets.nysa_password }}         # <--- inject secret as env var
-          hirise_user_id: ${{ secrets.hirise_user_id }}       # <--- inject secret as env var
-          hirise_password: ${{ secrets.hirise_password }}
+          DB_CONNECTION_URL: ${{ secrets.DB_CONNECTION_URL }}
+          NYSA_USER_ID: ${{ secrets.NYSA_USER_ID }}
+          NYSA_PASSWORD: ${{ secrets.NYSA_PASSWORD }}
+          HIRISE_USER_ID: ${{ secrets.HIRISE_USER_ID }}
+          HIRISE_PASSWORD: ${{ secrets.HIRISE_PASSWORD }}
         run: python hello_playwright.py
