@@ -2,7 +2,7 @@ import psycopg2
 import os
 
 def make_db_connection():
-    db_connection_url = os.getenv("db_connection_url")
+    db_connection_url = os.getenv("DB_CONNECTION_URL")
     # Connect to Aiven PostgreSQL
     conn = psycopg2.connect(db_connection_url)
     cur = conn.cursor()
