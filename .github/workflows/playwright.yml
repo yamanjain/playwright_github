@@ -44,6 +44,11 @@ jobs:
 
       - name: Install Playwright browsers (and required OS deps)
         run: python -m playwright install chromium --with-deps
+      
+      - name: Create Gmail credentials.json
+        run: echo "${{ secrets.GMAIL_CREDENTIALS }}" > credentials.json
+      - name: Write secrets
+        run: echo '${{ secrets.GOOGLE_TOKEN }}' > token.json
 
       - name: Run hello_playwright.py
         env:
