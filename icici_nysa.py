@@ -1,4 +1,4 @@
-from playwright.sync_api import sync_playwright, Playwright, Page, Browser, BrowserContext
+from playwright.sync_api import sync_playwright, Playwright, Page, Browser, BrowserContext, TimeoutError
 from playwright.sync_api import expect
 
 from db_connection import make_db_connection
@@ -29,14 +29,15 @@ def icici_nysa_authentication(p):
             print("Already logged in")
             return [browser, page, context]
 
-    baseurl = "https://nysa-lite.icicilombard.com/#/quote"
+    baseurl = "https://nysa-lite.icicilombard.com/#/login"
     retry = 0
     max_no_of_retry = 3
     while retry < max_no_of_retry:
         try:
-            page.goto(baseurl, timeout=5000)
+            page.goto(baseurl, wait_until="domcontentloaded", timeout=5000)
+            page.get_by_placeholder("Username").wait_for(timeout=5000)
             break
-        except:
+        except TimeoutError:
             print (f"{login_what}  homepage timed out. Retrying..")
             time.sleep(3)
             retry += 1
