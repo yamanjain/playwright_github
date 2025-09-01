@@ -112,7 +112,7 @@ def hirise_authentication(p):
             page.get_by_role("button", name="Send OTP").click()
             page.once("dialog", lambda dialog: dialog.dismiss())
             local_clock_wrong_in_seconds = 10
-            my_otp = gmail.gmail_otp(time_otp_sent, local_clock_wrong_in_seconds)
+            my_otp = gmail.gmail_otp(time_otp_sent, hirise_user_id, local_clock_wrong_in_seconds)
         if check_otp_valid(my_otp):
             otp_source = "Gmail"
     if check_otp_valid(my_otp):

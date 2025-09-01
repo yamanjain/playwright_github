@@ -62,7 +62,10 @@ def gmail_otp(time_otp_sent, user_id, local_clock_wrong_in_seconds = 0):
 
         retry = 0
         otp_array = []
-        while retry < 12 and len(otp_array) <= 1:
+        max_retry = 12
+        if local_clock_wrong_in_seconds > 600:
+            max_retry = 2
+        while retry < max_retry and len(otp_array) <= 1:
             retry += 1
             all_emails = fetch_emails(service, gmail_query_string)
             output_list = []

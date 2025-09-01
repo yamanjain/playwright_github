@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve Flask app
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/helloplay
+ExecStart=/home/ubuntu/helloplay/venv/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/sending/app.sock -m 007 app:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
