@@ -58,7 +58,7 @@ def icici_nysa_authentication(p):
 def get_nysa_issuance_report(page):
     page.get_by_role("link", name="Issuance Report").click()
     # Get yesterday's date in a variable
-    yesterday = date.today() - timedelta(days=1)
+    yesterday = date.today() - timedelta(days=4)
     # get the mm/dd part
     yesterday_mmdd = yesterday.strftime('%d/%m/')
     page.get_by_role("textbox", name="From Date*").click()

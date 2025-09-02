@@ -2,6 +2,7 @@ import pandas as pd
 from psycopg2.extras import execute_values
 import re
 import csv
+import itertools
 
 from db_connection import make_db_connection
 
@@ -107,7 +108,13 @@ def normalize_column_name(name):
 def read_comma_csv(file_path, encoding='utf-8', **kwargs):
     with open(file_path, 'r', encoding=encoding) as f:
         # Peek at first few lines
-        first_chunk = ''.join([next(f) for _ in range(5)])
+        # first_chunk = ''.join([next(f) for _ in range(5)])
+        # Read up to 2 lines safely
+        first_chunk = ''.join(itertools.islice(f, 2))
+
+        if not first_chunk.strip():
+            print(f"CSV file {file_path} is empty or contains only whitespace.")
+            return pd.DataFrame()  # Return empty DataFrame
         detected = csv.Sniffer().sniff(first_chunk).delimiter
 
         if detected != ',':
