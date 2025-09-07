@@ -62,8 +62,13 @@ def get_nysa_issuance_report(page):
     # get the mm/dd part
     yesterday_mmdd = yesterday.strftime('%d/%m/')
     page.get_by_role("textbox", name="From Date*").click()
-    # page.get_by_role("textbox", name="To Date*").click()
+    # Get the month (AUG 2025) and compare it to yetsterday's month
+    from_month_open = page.get_by_role("button", name="Choose month and year").inner_text()
+    from_month_year = yesterday.strftime('%b %Y').upper()
+    if from_month_open != from_month_year:
+        page.get_by_role("button", name="Next month").click()
     page.get_by_label(yesterday_mmdd).click()
+    # page.get_by_role("textbox", name="To Date*").click()
 
     with page.expect_download() as download_info:
         page.get_by_role("button", name="Submit").click()
